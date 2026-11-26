@@ -1,0 +1,25 @@
+<%@page import="util.Texto"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= tituloPagina %> - Gerenciar Chamados</title>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/tema.css">
+</head>
+<body>
+<header class="topo">
+    <span class="marca">Gerenciar Chamados</span>
+    <nav>
+        <a href="sobre.jsp">Início</a>
+        <a href="painel.jsp">Painel</a>
+        <% if (usuario.isTI()) { %>
+            <a href="relatorioUsuarios.jsp">Relatorio: respostas</a>
+            <a href="relatorioResumo.jsp">Relatorio: resumo</a>
+        <% } %>
+        <a href="logout.jsp">Sair</a>
+    </nav>
+    <span class="usuario"><%= Texto.escapar(usuario.getNome()) %> (<%= usuario.isTI() ? "Equipe de TI" : "Solicitante" %>)</span>
+</header>
+<main class="conteudo">
