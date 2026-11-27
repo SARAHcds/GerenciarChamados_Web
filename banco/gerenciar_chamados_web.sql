@@ -82,14 +82,6 @@ CREATE TABLE IF NOT EXISTS pesquisa (
     CONSTRAINT chk_q8 CHECK (q8 BETWEEN 1 AND 4)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- ============================================================================
--- DADOS DE TESTE (opcional). Senha de todos: Teste@123
--- ============================================================================
-INSERT INTO usuario (nome, email, senha, perfil, matricula, setor, cargo, telefone, especialidade) VALUES
- ('Ana Técnica',       'ti1@teste.com',  'Teste@123', 'TI',          'TI001',  'TI',         'Analista de Suporte', '(11) 90000-0001', 'Redes'),
- ('Bruno Técnico',     'ti2@teste.com',  'Teste@123', 'TI',          'TI002',  'TI',         'Técnico de Suporte',  '(11) 90000-0002', 'Hardware'),
- ('Carla Solicitante', 'user@teste.com', 'Teste@123', 'SOLICITANTE', 'SOL001', 'Financeiro', 'Assistente',         '(11) 90000-0003', NULL),
- ('Diego Solicitante', 'user2@teste.com','Teste@123', 'SOLICITANTE', 'SOL002', 'RH',         'Analista',            '(11) 90000-0004', NULL);
 
 -- Prioridade P1=4h, P2=8h, P3=24h, P4=72h (sla_horas)
 INSERT INTO chamados (titulo, descricao, tipo, categoria, impacto, urgencia, prioridade, status, sla_horas,
@@ -147,14 +139,17 @@ FROM pesquisa;
 -- Painel: chamados por status (status sem registros aparecem como 0 no Java)
 SELECT status, COUNT(*) AS quantidade FROM chamados GROUP BY status;
 
+
 -- ============================================================================
--- GERENCIAR CHAMADOS WEB - DADOS DE DEMONSTRAÇÃO (para a apresentação em vídeo)
--- Rodar DEPOIS de gerenciar_chamados_web.sql (o banco e as tabelas já devem existir).
--- Pode ser executado várias vezes: primeiro apaga só os usuários @empresa.com
--- (e os chamados/pesquisas ligados a eles) e depois insere tudo de novo.
--- Os 4 usuários de teste originais (@teste.com) NÃO são apagados.
--- Senha de todos os usuários abaixo: Teste@123
+-- DADOS DE TESTE. Senha de todos: Teste@123
 -- ============================================================================
+INSERT INTO usuario (nome, email, senha, perfil, matricula, setor, cargo, telefone, especialidade) VALUES
+ ('Ana Técnica',       'ti1@teste.com',  'Teste@123', 'TI',          'TI001',  'TI',         'Analista de Suporte', '(11) 90000-0001', 'Redes'),
+ ('Bruno Técnico',     'ti2@teste.com',  'Teste@123', 'TI',          'TI002',  'TI',         'Técnico de Suporte',  '(11) 90000-0002', 'Hardware'),
+ ('Carla Solicitante', 'user@teste.com', 'Teste@123', 'SOLICITANTE', 'SOL001', 'Financeiro', 'Assistente',         '(11) 90000-0003', NULL),
+ ('Diego Solicitante', 'user2@teste.com','Teste@123', 'SOLICITANTE', 'SOL002', 'RH',         'Analista',            '(11) 90000-0004', NULL);
+
+
 USE gerenciar_chamados_web;
 SET NAMES utf8mb4;
 
@@ -196,7 +191,6 @@ INSERT INTO usuario (nome, email, senha, perfil, matricula, setor, cargo, telefo
  ('Ricardo Alves', 'ricardo@empresa.com', 'Teste@123', 'SOLICITANTE', 'SOL106', 'Jurídico', 'Advogado', '(11) 92000-0106', NULL, TRUE, '2025-11-10 10:00:00', '2026-11-24 16:00:00'),
  ('Camila Rocha', 'camila@empresa.com', 'Teste@123', 'SOLICITANTE', 'SOL107', 'Marketing', 'Designer', '(11) 92000-0107', NULL, TRUE, '2025-11-10 10:00:00', '2026-11-24 16:00:00');
 
--- Guarda o id de cada usuário em uma variável para usar nos chamados
 SET @lucas = (SELECT id_usuario FROM usuario WHERE email = 'lucas@empresa.com');
 SET @patricia = (SELECT id_usuario FROM usuario WHERE email = 'patricia@empresa.com');
 SET @rafael = (SELECT id_usuario FROM usuario WHERE email = 'rafael@empresa.com');
@@ -210,8 +204,6 @@ SET @camila = (SELECT id_usuario FROM usuario WHERE email = 'camila@empresa.com'
 
 -- ---------------------------------------------------------------------------
 -- 3) CHAMADOS e PESQUISAS
--- Cada chamado concluído com pesquisa usa LAST_INSERT_ID() para ligar a pesquisa
--- ao chamado recém-inserido. Prioridade e SLA seguem a matriz do ChamadoBean.
 -- ---------------------------------------------------------------------------
 
 -- ===== ALICE MARTINS (15 chamados) =====
@@ -571,25 +563,3 @@ INSERT INTO chamados (titulo, descricao, tipo, categoria, impacto, urgencia, pri
 VALUES ('Instalar programa de PDF', 'Preciso de um editor de PDF instalado.', 'Requisição de serviço', 'Software / Sistema', 'Baixo', 'Baixa', 'P4', 'Concluído', 72,
         '2026-11-20 13:20:00', '2026-11-23 08:05:00', '2026-11-23 08:05:00', 'Programa instalado e licenciado.', NULL, @camila, @rafael);
 
--- ---------------------------------------------------------------------------
--- 4) CONFERÊNCIA (rode depois para ver o resultado)
--- ---------------------------------------------------------------------------
--- Alice: deve mostrar 15 chamados, 14 concluídos, 13 pesquisas
-SELECT COUNT(*) AS chamados,
-       SUM(c.status = 'Concluído') AS concluidos,
-       SUM(p.id_pesquisa IS NOT NULL) AS pesquisas_respondidas
-FROM chamados c
-LEFT JOIN pesquisa p ON p.id_chamado = c.id_chamado
-WHERE c.id_usuario = @alice;
-
--- Resumo por solicitante
-SELECT u.nome, COUNT(c.id_chamado) AS chamados,
-       SUM(c.status = 'Concluído') AS concluidos,
-       COUNT(p.id_pesquisa) AS pesquisas,
-       ROUND(AVG((p.q1+p.q2+p.q3+p.q4+p.q5+p.q6+p.q7+p.q8)/8), 2) AS media_respostas
-FROM usuario u
-JOIN chamados c ON c.id_usuario = u.id_usuario
-LEFT JOIN pesquisa p ON p.id_chamado = c.id_chamado
-WHERE u.email LIKE '%@empresa.com'
-GROUP BY u.nome
-ORDER BY u.nome;
