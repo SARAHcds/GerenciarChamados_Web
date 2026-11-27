@@ -4,10 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-/*
-Funções de apoio para as páginas JSP:
-escapar: evita que texto digitado pelo usuário vire HTML (proteção contra XSS).
-*/
 public class Texto {
 
     public static String escapar(String s) {

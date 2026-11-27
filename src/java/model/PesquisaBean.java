@@ -2,11 +2,6 @@ package model;
 
 import java.util.Date;
 
-/*
-Armazena as respostas da pesquisa de satisfação de um chamado concluído.
-q1 a q8 aceitam somente 1, 2, 3 ou 4.
-nomeUsuario e tituloChamado vêm de JOIN e servem só para os relatórios.
-*/
 public class PesquisaBean {
 
     private int idPesquisa;

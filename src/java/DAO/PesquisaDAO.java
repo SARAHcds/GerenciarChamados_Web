@@ -12,8 +12,6 @@ import util.ConectaBD;
 
 public class PesquisaDAO {
 
-    // Grava a pesquisa só se o chamado for do próprio solicitante e estiver concluído.
-    // A restrição UNIQUE em id_chamado impede segunda resposta para o mesmo chamado.
     public boolean inserir(PesquisaBean p) throws SQLException, ClassNotFoundException {
         validarRespostas(p);
         String sql = "INSERT INTO pesquisa (id_chamado, id_usuario, id_tecnico, q1, q2, q3, q4, q5, q6, q7, q8, observacao) "
@@ -74,8 +72,6 @@ public class PesquisaDAO {
         }
     }
 
-    // Relatório 2: percentual de cada alternativa (1, 2, 3, 4) de uma questão (1 a 8).
-    // Retorno: posição 0 = opção 1, posição 1 = opção 2, posição 2 = opção 3, posição 3 = opção 4.
     public double[] percentuaisDaQuestao(int questao) throws SQLException, ClassNotFoundException {
         if (questao < 1 || questao > 8) {
             throw new IllegalArgumentException("Questão inválida: " + questao);

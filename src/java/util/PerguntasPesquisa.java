@@ -1,9 +1,5 @@
 package util;
 
-/*
-Perguntas da pesquisa de satisfação. Cada pergunta tem 4 alternativas numeradas: 1, 2, 3 e 4.
-O texto fica aqui (e não no banco) porque o banco guarda só a resposta numérica.
-*/
 public class PerguntasPesquisa {
 
     public static final String[] PERGUNTAS = {

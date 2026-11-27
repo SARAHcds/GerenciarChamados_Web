@@ -19,7 +19,7 @@ public class ChamadoDAO {
       + "JOIN usuario s ON c.id_usuario = s.id_usuario "
       + "LEFT JOIN usuario t ON c.id_tecnico = t.id_usuario ";
 
-    // Abre um chamado. Prioridade e SLA são calculados aqui, não pela tela.
+    // Abre um chamado. Prioridade e SLA são calculados
     public boolean inserir(ChamadoBean c) throws SQLException, ClassNotFoundException {
         String prioridade = ChamadoBean.calcularPrioridade(c.getImpacto(), c.getUrgencia());
         String sql = "INSERT INTO chamados (titulo, descricao, tipo, categoria, impacto, urgencia, "
@@ -133,7 +133,7 @@ public class ChamadoDAO {
         }
     }
 
-    // Exclusão: só a equipe de TI, e só chamado "Aberto" (concluídos ficam para os relatórios)
+    // Exclusão: só a equipe de TI, e só chamado Aberto
     public boolean excluir(int idChamado, UsuarioBean usuario) throws SQLException, ClassNotFoundException {
         if (usuario == null || !usuario.isTI()) {
             return false;

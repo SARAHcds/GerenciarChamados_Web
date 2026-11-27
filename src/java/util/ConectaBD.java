@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/*
-Único ponto de conexão com o banco gerenciar_chamados_web.
-Não usa JOptionPane: em aplicação web a mensagem de erro é mostrada na própria página.
-*/
+
 public class ConectaBD {
 
     private static final String URL = "jdbc:mysql://localhost:3306/gerenciar_chamados_web"

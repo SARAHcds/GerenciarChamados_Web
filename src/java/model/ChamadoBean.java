@@ -2,13 +2,8 @@ package model;
 
 import java.util.Date;
 
-/*
-Armazena os dados do chamado.
-As regras de prioridade, SLA e transição de status (ITIL 4) ficam aqui como métodos estáticos.
-*/
 public class ChamadoBean {
 
-    // Valores permitidos (iguais aos CHECK do banco)
     public static final String[] TIPOS = {"Incidente", "Requisição de serviço"};
     public static final String[] CATEGORIAS = {"Hardware", "Software / Sistema", "Rede / Acesso",
         "Impressora / Periféricos", "Solicitação / Dúvida"};
@@ -41,7 +36,6 @@ public class ChamadoBean {
     private String nomeSolicitante;
     private String nomeTecnico;
 
-    // ---------- Regras de negócio (ITIL 4) ----------
 
     // Pontuação de cada nível: Alto/Alta = 3, Médio/Média = 2, Baixo/Baixa = 1
     private static int pontos(String nivel) {

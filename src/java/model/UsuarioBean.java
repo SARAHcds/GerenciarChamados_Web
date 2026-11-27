@@ -2,9 +2,6 @@ package model;
 
 import java.util.Date;
 
-/*
-Armazena os dados do usuário (solicitante ou equipe de TI).
-*/
 public class UsuarioBean {
 
     public static final String PERFIL_TI = "TI";
@@ -67,6 +64,5 @@ public class UsuarioBean {
     public Date getUltimoAcesso() { return ultimoAcesso; }
     public void setUltimoAcesso(Date ultimoAcesso) { this.ultimoAcesso = ultimoAcesso; }
 
-    // A equipe de TI enxerga os chamados de todos e pode excluir chamados abertos.
     public boolean isTI() { return PERFIL_TI.equals(perfil); }
 }
