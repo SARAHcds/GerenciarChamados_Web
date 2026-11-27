@@ -2,6 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/DAO/ChamadoDAO.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/DAO/PesquisaDAO.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/DAO/UsuarioDAO.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/model/ChamadoBean.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/model/PesquisaBean.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/model/UsuarioBean.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/util/ConectaBD.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/util/PerguntasPesquisa.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/src/java/util/Texto.java</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/web/login.jsp</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/web/loginProcessa.jsp</file>
+            <file>file:/C:/Users/sarah/OneDrive/Documents/NetBeansProjects/GerenciarChamados_Web/web/novoChamado.jsp</file>
+        </group>
     </open-files>
 </project-private>
